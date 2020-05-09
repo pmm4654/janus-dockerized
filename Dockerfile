@@ -45,10 +45,13 @@ WORKDIR /
 RUN git clone https://github.com/meetecho/janus-gateway.git
 WORKDIR /janus-gateway
 RUN sh autogen.sh
-RUN ./configure --prefix=/opt/janus
+RUN ./configure --prefix=/opt/janus --disable-rest
 RUN make && make install
 
 RUN make configs
+COPY ./start.sh .
+RUN chmod a+x start.sh
+RUN touch health.html
 
 
 
